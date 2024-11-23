@@ -12,26 +12,18 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create and Modify Archive
         run: |
-          # Créer l'archive sans dossier racine
-          git archive --output=temp.zip HEAD
+          # Extraire le nom du dépôt (prend la partie après le /)
+          REPO_NAME=${GITHUB_REPOSITORY#*/}
           
-          # Créer un dossier temporaire
-          mkdir temp
-          cd temp
+          # Créer le dossier cible avec le nom du dépôt
+          mkdir -p "$REPO_NAME"
           
-          # Extraire les fichiers
-          unzip ../temp.zip
+          # Copier tous les fichiers du projet dans ce dossier
+          # sauf .git et le dossier lui-même
+          cp -r $(ls -A | grep -v '^\.git$\|^'"$REPO_NAME"'$') "$REPO_NAME/"
           
-          # Créer le dossier avec le nom souhaité et déplacer tous les fichiers dedans
-          mkdir upcoder-admin-menu
-          mv $(ls -A | grep -v 'upcoder-admin-menu') upcoder-admin-menu/
-          
-          # Créer la nouvelle archive
-          zip -r ../release.zip upcoder-admin-menu
-          
-          # Nettoyer
-          cd ..
-          rm -rf temp temp.zip
+          # Créer l'archive avec le dossier renommé
+          zip -r release.zip "$REPO_NAME"
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
         with:
