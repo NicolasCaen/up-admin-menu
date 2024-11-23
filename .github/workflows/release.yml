@@ -6,34 +6,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Create and Modify Archive
         run: |
-          # Créer un dossier temporaire
           mkdir temp
           cd temp
-          
-          # Créer l'archive initiale
           git -C .. archive --format=zip --output=../release.zip HEAD
-          
-          # Extraire l'archive
           unzip ../release.zip
-          
-          # Renommer le dossier racine
           mv * upcoder-admin-menu
-          
-          # Recréer l'archive avec le nouveau nom de dossier
           zip -r ../release.zip upcoder-admin-menu
-          
           cd ..
           rm -rf temp
       - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./release.zip
-          asset_name: release.zip
-          asset_content_type: application/zip
+          files: release.zip
