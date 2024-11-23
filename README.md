@@ -31,7 +31,18 @@ Upcoder Admin Menu est un plugin WordPress qui permet aux administrateurs de per
 
 ## Licence
 
-Ce plugin est sous licence GPL v2 ou ultérieure
+Ce plugin est sous licence [GNU GPL v2](https://www.gnu.org/licenses/gpl-2.0.html) ou ultérieure.
+
+### Pourquoi la GPL ?
+
+WordPress est distribué sous licence GPL v2+, et en tant qu'extension de WordPress, ce plugin doit également utiliser une licence compatible. La licence GPL garantit quatre libertés fondamentales :
+
+1. La liberté d'utiliser le logiciel pour n'importe quel usage
+2. La liberté d'étudier le fonctionnement du programme et de l'adapter à vos besoins
+3. La liberté de redistribuer des copies
+4. La liberté d'améliorer le programme et de rendre publiques ces améliorations
+
+Copyright (C) 2024 GEHIN Nicolas
 
 ## Changelog
 
