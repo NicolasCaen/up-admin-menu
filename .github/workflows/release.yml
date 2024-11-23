@@ -11,8 +11,8 @@ jobs:
       - name: Create Archive
         run: |
           git config --global tar.umask 0022
-          git config --global tar.prefix "up-admin-menu/"
-          git archive --prefix=up-admin-menu/ -o release.zip HEAD
+          git config --global tar.prefix "upcoder-admin-menu/"
+          git archive --prefix=upcoder-admin-menu/ -o release.zip HEAD
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
