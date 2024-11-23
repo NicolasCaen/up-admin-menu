@@ -8,21 +8,19 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      NODE_VERSION: '20'
     steps:
       - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
       - name: Create and Modify Archive
         run: |
-          # Extraire le nom du dépôt (prend la partie après le /)
           REPO_NAME=${GITHUB_REPOSITORY#*/}
-          
-          # Créer le dossier cible avec le nom du dépôt
           mkdir -p "$REPO_NAME"
-          
-          # Copier tous les fichiers du projet dans ce dossier
-          # sauf .git et le dossier lui-même
           cp -r $(ls -A | grep -v '^\.git$\|^'"$REPO_NAME"'$') "$REPO_NAME/"
-          
-          # Créer l'archive avec le dossier renommé
           zip -r release.zip "$REPO_NAME"
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
