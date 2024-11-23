@@ -8,11 +8,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Create Archive
+      - name: Create and Modify Archive
         run: |
-          git config --global tar.umask 0022
-          git config --global tar.prefix "upcoder-admin-menu/"
-          git archive --prefix=upcoder-admin-menu/ -o release.zip HEAD
+          # Créer un dossier temporaire
+          mkdir temp
+          cd temp
+          
+          # Créer l'archive initiale
+          git -C .. archive --format=zip --output=../release.zip HEAD
+          
+          # Extraire l'archive
+          unzip ../release.zip
+          
+          # Renommer le dossier racine
+          mv * upcoder-admin-menu
+          
+          # Recréer l'archive avec le nouveau nom de dossier
+          zip -r ../release.zip upcoder-admin-menu
+          
+          cd ..
+          rm -rf temp
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
