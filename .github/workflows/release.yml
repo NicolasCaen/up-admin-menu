@@ -21,7 +21,7 @@ jobs:
           REPO_NAME=${GITHUB_REPOSITORY#*/}
           mkdir -p "$REPO_NAME"
           # Copie tous les fichiers sauf .git, README.md et le dossier de sortie
-          rsync -av --progress ./ "$REPO_NAME" --exclude=".git" --exclude="README.md" --exclude="$REPO_NAME"
+          rsync -av --progress ./ "$REPO_NAME" --exclude=".git" --exclude=".github" --exclude="README.md" --exclude="$REPO_NAME"
           zip -r release.zip "$REPO_NAME"
       - name: Upload Release Asset
         uses: softprops/action-gh-release@v1
