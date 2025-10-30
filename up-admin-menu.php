@@ -2,7 +2,7 @@
 /*
 Plugin Name: Upcoder Admin Menu
 Description: Plugin permettant d'ajouter un bouton pour afficher/masquer les menus administratifs selon les préférences de l'utilisateur
-Version: 1.4.0
+Version: 1.4.1
 Author: GEHIN Nicolas
 */
 
@@ -13,10 +13,12 @@ function ajouter_toggle_admin_bar() {
     $user_id = get_current_user_id();
     $current_config = get_user_meta($user_id, 'menu_simplified', true);
     $configurations = get_menu_configurations();
-    
+    $switch_icon_url = esc_url(plugins_url('assets/icons/switch.svg', __FILE__));
+    $settings_icon_url = esc_url(plugins_url('assets/icons/settings.svg', __FILE__));
+
     // Texte du bouton
     $button_text = ($current_config === '') ? 'Menu: Standard' :  $configurations[$current_config]['name'];
-    
+
     // Ajouter un nœud parent pour le conteneur du select
     $wp_admin_bar->add_node(array(
         'id'    => 'toggle-admin-menu',
@@ -26,27 +28,11 @@ function ajouter_toggle_admin_bar() {
             'html' => '<div id="toggle-admin-menu-select-container" style="display: none;">
                             <select id="toggle-admin-menu-select"></select>
                             <button id="toggle-admin-menu-apply" style ="display:flex; align-items: center; justify-content: center; height:100%">
-                            <svg width="24px" height="24px" viewBox="0 0 512 512" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                <style type="text/css">
-                                    .st0{fill:white;}
-                                    .st1{fill:none;stroke:white;stroke-width:32;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
-                                </style>
-                                <g id="Layer_1"/>
-                                <g id="Layer_2">
-                                <g>
-                                <g>
-                                <path class="st0" d="M364.74,333.3c16.19,0,29.37-13.18,29.37-29.37V76.58c0-16.19-13.18-29.37-29.37-29.37H245.68     c-16.19,0-29.37,13.18-29.37,29.37v102.11h-69.05c-16.19,0-29.37,13.18-29.37,29.37v227.36c0,16.19,13.18,29.37,29.37,29.37     h119.06c16.19,0,29.37-13.18,29.37-29.37V333.3H364.74z M248.31,79.21h113.8V301.3h-66.42v-93.24     c0-16.19-13.18-29.37-29.37-29.37h-18.01V79.21z M263.69,432.79h-113.8v-222.1h82.42h31.38V317.3V432.79z"/>
-                                </g>
-                                <g>
-                                <path class="st0" d="M462.54,360.63c-0.02-0.23-0.06-0.45-0.1-0.67c-0.04-0.29-0.08-0.58-0.13-0.87     c-0.05-0.26-0.12-0.52-0.19-0.77c-0.06-0.25-0.12-0.5-0.19-0.75c-0.08-0.25-0.17-0.5-0.26-0.75c-0.09-0.24-0.17-0.49-0.27-0.73     c-0.1-0.23-0.21-0.46-0.32-0.68c-0.12-0.25-0.23-0.49-0.35-0.74c-0.12-0.22-0.25-0.43-0.38-0.64c-0.14-0.24-0.27-0.47-0.43-0.71     c-0.16-0.24-0.33-0.46-0.5-0.68c-0.14-0.19-0.27-0.39-0.43-0.57c-0.67-0.82-1.42-1.56-2.23-2.23c-0.19-0.15-0.38-0.28-0.57-0.43     c-0.23-0.17-0.45-0.35-0.69-0.5c-0.23-0.15-0.47-0.29-0.7-0.43c-0.21-0.13-0.42-0.26-0.64-0.38c-0.24-0.13-0.49-0.24-0.73-0.35     c-0.23-0.11-0.45-0.22-0.69-0.32c-0.24-0.1-0.48-0.18-0.72-0.26c-0.25-0.09-0.5-0.19-0.75-0.26c-0.24-0.07-0.49-0.13-0.73-0.19     c-0.26-0.07-0.52-0.14-0.78-0.19c-0.28-0.06-0.57-0.09-0.85-0.13c-0.23-0.03-0.46-0.08-0.69-0.1c-0.53-0.05-1.05-0.08-1.58-0.08     h-52.89c-8.84,0-16,7.16-16,16s7.16,16,16,16H408l-78.48,78.48c-6.25,6.25-6.25,16.38,0,22.63c3.12,3.12,7.22,4.69,11.31,4.69     s8.19-1.56,11.31-4.69l78.48-78.48v14.27c0,8.84,7.16,16,16,16s16-7.16,16-16v-52.89C462.62,361.68,462.59,361.15,462.54,360.63z     "/>
-                                </g>
-                                <g>
-                                <path class="st0" d="M56.49,163.1c0.23,0.15,0.46,0.28,0.7,0.42c0.22,0.13,0.43,0.26,0.65,0.38c0.24,0.13,0.48,0.23,0.73,0.35     c0.23,0.11,0.46,0.22,0.69,0.32c0.24,0.1,0.48,0.18,0.72,0.26c0.25,0.09,0.5,0.19,0.76,0.27c0.24,0.07,0.48,0.13,0.72,0.19     c0.26,0.07,0.53,0.14,0.79,0.19c0.28,0.06,0.56,0.09,0.84,0.13c0.24,0.03,0.47,0.08,0.71,0.1c0.52,0.05,1.05,0.08,1.58,0.08h52.9     c8.84,0,16-7.16,16-16s-7.16-16-16-16H104l78.48-78.48c6.25-6.25,6.25-16.38,0-22.63c-6.25-6.25-16.38-6.25-22.63,0l-78.48,78.48     V96.9c0-8.84-7.16-16-16-16s-16,7.16-16,16v52.89c0,0.53,0.03,1.06,0.08,1.59c0.02,0.23,0.06,0.45,0.1,0.67     c0.04,0.29,0.08,0.58,0.13,0.87c0.05,0.26,0.12,0.52,0.19,0.77c0.06,0.25,0.12,0.5,0.19,0.75c0.08,0.25,0.17,0.5,0.26,0.75     c0.09,0.24,0.17,0.49,0.27,0.73c0.1,0.23,0.21,0.46,0.32,0.68c0.12,0.25,0.23,0.49,0.35,0.74c0.12,0.22,0.25,0.43,0.38,0.64     c0.14,0.24,0.27,0.47,0.43,0.71c0.16,0.24,0.33,0.46,0.5,0.68c0.14,0.19,0.27,0.39,0.43,0.57c0.67,0.82,1.42,1.56,2.23,2.23     c0.18,0.15,0.38,0.28,0.57,0.43C56.03,162.76,56.26,162.94,56.49,163.1z"/>
-                                </g>
-                                </g>
-                                </g>
-                                </svg>
+                                <img src="' . $switch_icon_url . '" alt="Changer de configuration" width="20" height="20" />
                             </button>
+                            <a id="toggle-admin-menu-settings" href="' . admin_url('options-general.php?page=toggle-menu-settings') . '" style="display:flex; align-items: center; justify-content: center; height:100%">
+                                <img src="' . $settings_icon_url . '" alt="Réglages" width="20" height="20" />
+                            </a>
                         </div>', // Conteneur pour le select
         ),
     ));
@@ -79,6 +65,7 @@ add_action('admin_menu', 'gerer_affichage_menus', 999);
 // Enregistre et charge le script JavaScript
 function enregistrer_toggle_script() {
     wp_enqueue_script('jquery');
+    wp_enqueue_style('toggle-admin-menu-styles', plugins_url('style.css', __FILE__), array(), '1.4.1');
     
     wp_add_inline_script('jquery', '
         jQuery(document).ready(function($) {
@@ -156,59 +143,6 @@ function handle_toggle_ajax() {
 }
 add_action('wp_ajax_toggle_admin_menu', 'handle_toggle_ajax');
 
-
-// Ajoute du CSS pour le bouton
-function ajouter_toggle_styles() {
-    ?>
-    <style>
-        #wp-admin-bar-toggle-admin-menu{
-            display: flex !important;
-            justify-content: center;
-        }
-
-        #wp-admin-bar-toggle-admin-menu .ab-item {
-          display: none !important;
-        }
-#toggle-admin-menu-select-container{
-    display: flex;
-    align-items: center;
-    background: #1d2327;
-}
-
-        #toggle-admin-menu-select {
-            background:#444444;
-            border:0;
-            padding: 0 1rem;
-            color: white;
-            box-sizing: border-box;
-            
-        
-        }
-
-        #toggle-admin-menu-select option{
-    
-            padding: 0.25rem 0.5rem;    
-        }
-        #toggle-admin-menu-select:focus {
-            outline: none;
-            border-color: #2271b1;
-        }
-        /* Style pour le bouton */
-        #toggle-admin-menu-apply {
-            background: #2271b1;
-            color: white;
-            border: none;
-            padding : 0 .25rem;
-            cursor: pointer;
-            margin-left: 0;
-        }
-        #toggle-admin-menu-apply:hover {
-            background: #135e96;
-        }
-    </style>
-    <?php
-}
-add_action('admin_head', 'ajouter_toggle_styles');
 
 // Ajoute la page d'options
 function ajouter_menu_options() {

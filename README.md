@@ -46,5 +46,17 @@ Copyright (C) 2024 GEHIN Nicolas
 
 ## Changelog
 
+### 1.4.1
+- Déplacement des styles vers un fichier CSS compilé (`style.css`) avec source SCSS dans `assets/scss/style.scss`.
+- Intégration d'icônes SVG pour l'action de changement et l'accès aux réglages dans la barre d'administration.
+- Ajustements d'interface (espacement, couleurs de survol, padding) pour le sélecteur de configuration.
+- Mise à jour du lien "Réglages" vers une icône dédiée.
+
+### 1.4.0
+- Ajout d'un sélecteur dans la barre d'administration pour choisir une configuration de menu personnalisée.
+- Gestion de plusieurs configurations de menus enregistrées côté administrateur avec duplication rapide depuis l'interface d'options.
+- Sauvegarde de la configuration sélectionnée par utilisateur via AJAX et rechargement automatique de l'administration.
+- Améliorations visuelles du sélecteur (affichage flex, styles dédiés pour le bouton et la liste déroulante).
+
 ### 1.0.0
 - Version initiale du plugin
