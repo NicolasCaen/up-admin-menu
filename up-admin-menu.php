@@ -2,7 +2,7 @@
 /*
 Plugin Name: Upcoder Admin Menu
 Description: Plugin permettant d'ajouter un bouton pour afficher/masquer les menus administratifs selon les préférences de l'utilisateur
-Version: 1.5.0
+Version: 1.5.1
 Author: GEHIN Nicolas
 */
 
@@ -10,6 +10,11 @@ Author: GEHIN Nicolas
 function ajouter_toggle_admin_bar() {
     global $wp_admin_bar;
     
+    // N'afficher que dans l'administration (pas en front)
+    if (!is_admin()) {
+        return;
+    }
+
     $user_id = get_current_user_id();
     $current_config = get_user_meta($user_id, 'menu_simplified', true);
     $configurations = get_menu_configurations();
@@ -123,7 +128,7 @@ add_action('admin_menu', 'gerer_affichage_menus', 999);
 // Enregistre et charge le script JavaScript
 function enregistrer_toggle_script() {
     wp_enqueue_script('jquery');
-    wp_enqueue_style('toggle-admin-menu-styles', plugins_url('style.css', __FILE__), array(), '1.5.0');
+    wp_enqueue_style('toggle-admin-menu-styles', plugins_url('style.css', __FILE__), array(), '1.5.1');
     
     wp_add_inline_script('jquery', '
         jQuery(document).ready(function($) {
