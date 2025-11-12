@@ -11,6 +11,13 @@ Upcoder Admin Menu est un plugin WordPress qui permet aux administrateurs de per
 - Interface simple et intuitive
 - Personnalisation des menus visibles/cachés
 - Sauvegarde des préférences par utilisateur
+- Sélecteur dans la barre d’admin pour basculer de configuration
+- Portées d’application: moi uniquement, tous, ou par rôle
+- Possibilité de définir une configuration par défaut
+- Propriété des configurations personnelles (visibles/choisissables uniquement par leur propriétaire)
+- Lien « Réglages » visible uniquement par les administrateurs
+- Option « Standard » qui n’applique aucune configuration globale/rôle/défaut
+- Suppression et réorganisation (glisser‑déposer) des configurations
 - Compatible avec les dernières versions de WordPress
 
 ## Installation
@@ -45,6 +52,15 @@ WordPress est distribué sous licence GPL v2+, et en tant qu'extension de WordPr
 Copyright (C) 2024 GEHIN Nicolas
 
 ## Changelog
+
+### 1.5.0
+- Ajout des portées de configuration: `user` (moi uniquement), `all` (tous), `role` (par rôle)
+- Possibilité de marquer une configuration comme « par défaut »
+- Sécurité et UX: les configs `user` ne sont visibles/choisissables que par leur propriétaire
+- Lien « Réglages » dans la barre d’admin visible uniquement par les administrateurs
+- Choix « Standard » force l’absence de configuration globale/rôle/défaut
+- UI: sélecteur, bouton d’application et icône réglages sur une seule ligne (barre d’admin)
+- UI réglages: suppression et ordre des configurations par glisser‑déposer
 
 ### 1.4.1
 - Déplacement des styles vers un fichier CSS compilé (`style.css`) avec source SCSS dans `assets/scss/style.scss`.
